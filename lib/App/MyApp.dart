@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
-import 'package:to_do_app/features/auth/screens/Splash_screen.dart';
 
-import '../core/utils/App_colors.dart';
+import '../features/auth/presention/screens/Splash/Splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
