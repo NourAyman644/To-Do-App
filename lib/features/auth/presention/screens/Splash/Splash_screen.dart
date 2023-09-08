@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/core/utils/App_assetes.dart';
-import 'package:to_do_app/features/auth/presention/screens/onBoarding/onBoarding1.dart';
+import 'package:to_do_app/features/auth/presention/screens/onBoarding/onBoardindScreens.dart';
 
 import '../../../../../core/utils/App_colors.dart';
 import '../../../../../core/utils/App_strings.dart';
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
         const Duration(seconds: 3),
         () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const onBoardingOne())));
+            MaterialPageRoute(builder: (context) => onBoardingScreens())));
   }
 
   @override

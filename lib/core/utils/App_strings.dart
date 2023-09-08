@@ -11,6 +11,7 @@ class AppStrings {
   static const String onBoardingSubTitleThree =
       "You can organize your daily tasks by adding your tasks into separate categories";
   static const String back = "Back";
+  static const String skip = "Skip";
   static const String next = "Next";
   static const String start = "Get Started";
   static const String today = "Today";
