@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:to_do_app/core/common/commonds.dart';
 import 'package:to_do_app/core/utils/App_assetes.dart';
+import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
+import 'package:to_do_app/core/widgeths/custom_text_button.dart';
 import 'package:to_do_app/features/Task/screens/home.dart';
+import '../../../../../core/datebase/cache.dart';
+import '../../../../../core/services/services_Locator.dart';
 import '../../../../../core/utils/App_colors.dart';
 import '../../../../../core/utils/App_strings.dart';
 import '../../../data/models/onboarding.dart';
 
 class onBoardingScreens extends StatelessWidget {
   onBoardingScreens({super.key});
+
   final controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,19 +36,11 @@ class onBoardingScreens extends StatelessWidget {
                           Row(
                             children: [
                               index != 2
-                                  ? TextButton(
-                                      onPressed: () {
+                                  ? CustomTextButton(
+                                      text: AppStrings.skip,
+                                      Onpressed: () {
                                         controller.jumpToPage(2);
                                       },
-                                      child: Text(
-                                        AppStrings.skip,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium!
-                                            .copyWith(
-                                                color: AppColors.white
-                                                    .withOpacity(0.44)),
-                                      ),
                                     )
                                   : const SizedBox(
                                       height: 50,
@@ -86,72 +85,45 @@ class onBoardingScreens extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               index != 0
-                                  ? TextButton(
-                                      onPressed: () {
+                                  ? CustomTextButton(
+                                      text: AppStrings.back,
+                                      Onpressed: () {
                                         controller.previousPage(
-                                            duration:
-                                                Duration(microseconds: 500),
+                                            duration: const Duration(
+                                                microseconds: 1000),
                                             curve: Curves.linearToEaseOut);
-                                      },
-                                      child: Text(AppStrings.back,
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium!
-                                              .copyWith(
-                                                color: AppColors.white
-                                                    .withOpacity(.44),
-                                              )))
+                                      })
                                   : Container(),
                               index != 2
-                                  ? SizedBox(
+                                  ? CustomElevatedButton(
+                                      text: AppStrings.next,
+                                      onPressed: () {
+                                        controller.nextPage(
+                                            duration: const Duration(
+                                                milliseconds: 1000),
+                                            curve:
+                                                Curves.fastLinearToSlowEaseIn);
+                                      },
                                       height: 48,
-                                      width: 90,
-                                      child: ElevatedButton(
-                                          style: Theme.of(context)
-                                              .elevatedButtonTheme
-                                              .style,
-                                          onPressed: () {
-                                            controller.nextPage(
-                                                duration: const Duration(
-                                                    milliseconds: 500),
-                                                curve: Curves
-                                                    .fastLinearToSlowEaseIn);
-                                          },
-                                          child: Text(
-                                            AppStrings.next,
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayMedium,
-                                          )),
-                                    )
-                                  : SizedBox(
+                                      width: 90)
+                                  : CustomElevatedButton(
+                                      text: AppStrings.start,
+                                      //navigate to home screen
+                                      onPressed: () async {
+                                        await sl<CacheHelper>()
+                                            .saveData(
+                                                key: AppStrings.onBoardingKey,
+                                                value: true)
+                                            .then((value) {
+                                          print('onBoarding visited ');
+                                          replace(
+                                              context: context,
+                                              screen: const HomeScreen());
+                                        }).catchError(
+                                                (e) => print(e.toString()));
+                                      },
                                       height: 48,
-                                      width: 151,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.btncolor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              )),
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomeScreen()));
-                                          },
-                                          child: Text(
-                                            AppStrings.start,
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayMedium,
-                                          )),
-                                    ),
+                                      width: 151)
                             ],
                           ),
                         ],

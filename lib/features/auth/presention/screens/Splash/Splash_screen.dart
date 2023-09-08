@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:to_do_app/core/datebase/cache.dart';
 import 'package:to_do_app/core/utils/App_assetes.dart';
+import 'package:to_do_app/features/Task/screens/home.dart';
 import 'package:to_do_app/features/auth/presention/screens/onBoarding/onBoardindScreens.dart';
 
+import '../../../../../core/services/services_Locator.dart';
 import '../../../../../core/utils/App_colors.dart';
 import '../../../../../core/utils/App_strings.dart';
 
@@ -22,10 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigation() {
+    bool visit =
+        sl<CacheHelper>().getData(key: AppStrings.onBoardingKey) ?? false;
+
     Future.delayed(
         const Duration(seconds: 3),
-        () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => onBoardingScreens())));
+        () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    visit ? HomeScreen() : onBoardingScreens())));
   }
 
   @override
@@ -42,11 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Text(
               AppStrings.AppName,
-              style: GoogleFonts.lato(
-                fontSize: 40,
-                color: AppColors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontSize: 40,
+                  ),
             )
           ],
         ),
