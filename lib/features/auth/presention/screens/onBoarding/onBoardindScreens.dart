@@ -14,9 +14,8 @@ class onBoardingScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.background,
         body: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -32,17 +31,18 @@ class onBoardingScreens extends StatelessWidget {
                               index != 2
                                   ? TextButton(
                                       onPressed: () {
-                                        controller.jumpTo(2);
+                                        controller.jumpToPage(2);
                                       },
                                       child: Text(
                                         AppStrings.skip,
-                                        style: GoogleFonts.lato(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16,
-                                          color:
-                                              AppColors.white.withOpacity(.44),
-                                        ),
-                                      ))
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .copyWith(
+                                                color: AppColors.white
+                                                    .withOpacity(0.44)),
+                                      ),
+                                    )
                                   : const SizedBox(
                                       height: 50,
                                     ),
@@ -69,11 +69,7 @@ class onBoardingScreens extends StatelessWidget {
                           ),
                           Text(
                             OnBoardingModel.onBoardingScreens[index].title,
-                            style: GoogleFonts.lato(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 32,
-                              color: AppColors.white.withOpacity(.87),
-                            ),
+                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(
                             height: 32,
@@ -81,11 +77,7 @@ class onBoardingScreens extends StatelessWidget {
                           Text(
                             OnBoardingModel.onBoardingScreens[index].subTitle,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.lato(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: AppColors.white.withOpacity(.87),
-                            ),
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           const SizedBox(
                             height: 100,
@@ -101,29 +93,24 @@ class onBoardingScreens extends StatelessWidget {
                                                 Duration(microseconds: 500),
                                             curve: Curves.linearToEaseOut);
                                       },
-                                      child: Text(
-                                        AppStrings.back,
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.lato(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16,
-                                          color:
-                                              AppColors.white.withOpacity(.44),
-                                        ),
-                                      ))
+                                      child: Text(AppStrings.back,
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium!
+                                              .copyWith(
+                                                color: AppColors.white
+                                                    .withOpacity(.44),
+                                              )))
                                   : Container(),
                               index != 2
                                   ? SizedBox(
                                       height: 48,
                                       width: 90,
                                       child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.btncolor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              )),
+                                          style: Theme.of(context)
+                                              .elevatedButtonTheme
+                                              .style,
                                           onPressed: () {
                                             controller.nextPage(
                                                 duration: const Duration(
@@ -134,11 +121,9 @@ class onBoardingScreens extends StatelessWidget {
                                           child: Text(
                                             AppStrings.next,
                                             textAlign: TextAlign.center,
-                                            style: GoogleFonts.lato(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: AppColors.white,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium,
                                           )),
                                     )
                                   : SizedBox(
@@ -162,11 +147,9 @@ class onBoardingScreens extends StatelessWidget {
                                           child: Text(
                                             AppStrings.start,
                                             textAlign: TextAlign.center,
-                                            style: GoogleFonts.lato(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: AppColors.white,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium,
                                           )),
                                     ),
                             ],
