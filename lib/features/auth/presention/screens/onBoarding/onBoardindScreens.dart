@@ -105,7 +105,9 @@ class onBoardingScreens extends StatelessWidget {
                                                 Curves.fastLinearToSlowEaseIn);
                                       },
                                       height: 48,
-                                      width: 90)
+                                      width: 90,
+                                      color: AppColors.primarycolor,
+                                    )
                                   : CustomElevatedButton(
                                       text: AppStrings.start,
                                       //navigate to home screen
@@ -123,7 +125,8 @@ class onBoardingScreens extends StatelessWidget {
                                                 (e) => print(e.toString()));
                                       },
                                       height: 48,
-                                      width: 151)
+                                      width: 151, color: AppColors.primarycolor,
+                                    )
                             ],
                           ),
                         ],

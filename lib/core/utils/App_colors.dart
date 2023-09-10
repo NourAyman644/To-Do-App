@@ -13,4 +13,7 @@ class AppColors {
   static const Color primarycolor = Color(0xff8687E7);
   static const Color delColor = Color(0xffE57373);
   static const Color selectedColor = Color(0xff242969);
+  static const Color sheetColor = Color(0xff424242);
+  static const Color borderColor = Color(0xff979797);
+  static const Color backColor = Color(0xff1D1D1D);
 }

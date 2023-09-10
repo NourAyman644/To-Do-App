@@ -30,5 +30,7 @@ class AppStrings {
   static const String toDo = "TODO";
   static const String startTime = "Start Time";
   static const String endTime = "End Time";
+  static const String color = "Color";
+  static const String task = "Task";
   static const String onBoardingKey = "onBoarding";
 }

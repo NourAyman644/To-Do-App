@@ -57,7 +57,7 @@ ThemeData getAppDarkTheme() {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.btncolor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
       ));

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/core/utils/App_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  CustomElevatedButton(
-      {Key? key,
-      required this.text,
-      required this.onPressed,
-      required this.height,
-      required this.width});
+  CustomElevatedButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    required this.height,
+    required this.width,
+    this.color = AppColors.primarycolor,
+  });
 
   final String text;
   final VoidCallback onPressed;
   final double height;
   final double width;
+  late Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,9 @@ class CustomElevatedButton extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-          style: Theme.of(context).elevatedButtonTheme.style,
+          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                backgroundColor: MaterialStatePropertyAll(color),
+              ),
           onPressed: onPressed,
           child: Text(
             text,
