@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
+import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 
 import '../utils/App_colors.dart';
 import '../utils/App_strings.dart';
 
 class TaskComponent extends StatelessWidget {
-  TaskComponent({required this.TaskColor});
+  TaskComponent({required this.TaskColor, required this.taskmodel});
   late Color TaskColor;
-
+  final TaskModel taskmodel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +28,7 @@ class TaskComponent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      AppStrings.task,
+                      taskmodel.title,
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 24,
                           ),
@@ -43,13 +44,13 @@ class TaskComponent extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          '09:33 PM - 09:48 PM',
+                          '${taskmodel.StartTime}  - ${taskmodel.endTime}',
                           style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ],
                     ),
                     Text(
-                      'Learn Dart',
+                      taskmodel.note,
                       style:
                           Theme.of(context).textTheme.displayMedium!.copyWith(
                                 fontSize: 24,
@@ -75,7 +76,7 @@ class TaskComponent extends StatelessWidget {
               RotatedBox(
                 quarterTurns: 7,
                 child: Text(
-                  AppStrings.toDo,
+                  taskmodel.isCompleted ? AppStrings.complete : AppStrings.toDo,
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),

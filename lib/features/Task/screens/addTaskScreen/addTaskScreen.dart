@@ -42,172 +42,176 @@ class addTaskScreen extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: BlocBuilder<TaskCubit, TaskState>(
               builder: (context, state) {
-                return Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      AppStrings.title,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextFormField(
-                      hint: AppStrings.titleHint,
-                      height: 48,
-                      width: double.infinity,
-                      controller: titleController,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      AppStrings.note,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextFormField(
-                      hint: AppStrings.noteHint,
-                      height: 48,
-                      width: double.infinity,
-                      controller: noteController,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      AppStrings.date,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextFormField(
-                      readOnly: true,
-                      hint: DateFormat.yMd()
-                          .format(BlocProvider.of<TaskCubit>(context).current)
-                          .toString(),
-                      height: 48,
-                      width: double.infinity,
-                      suffixIcon: Icons.calendar_month_outlined,
-                      onPressed: () async {
-                        BlocProvider.of<TaskCubit>(context).getDate(context);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.startTime,
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            CustomTextFormField(
-                              readOnly: true,
-                              hint:
-                                  BlocProvider.of<TaskCubit>(context).startTime,
-                              height: 48,
-                              width: 170,
-                              suffixIcon: Icons.timer_outlined,
-                              onPressed: () async {
-                                BlocProvider.of<TaskCubit>(context)
-                                    .getStart(context);
-                              },
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.endTime,
-                              // textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            CustomTextFormField(
+                return Form(
+                  child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        AppStrings.title,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      CustomTextFormField(
+                        hint: AppStrings.titleHint,
+                        height: 48,
+                        width: double.infinity,
+                        controller: titleController,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        AppStrings.note,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      CustomTextFormField(
+                        hint: AppStrings.noteHint,
+                        height: 48,
+                        width: double.infinity,
+                        controller: noteController,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        AppStrings.date,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      CustomTextFormField(
+                        readOnly: true,
+                        hint: DateFormat.yMd()
+                            .format(BlocProvider.of<TaskCubit>(context).current)
+                            .toString(),
+                        height: 48,
+                        width: double.infinity,
+                        suffixIcon: Icons.calendar_month_outlined,
+                        onPressed: () async {
+                          BlocProvider.of<TaskCubit>(context).getDate(context);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppStrings.startTime,
+                                textAlign: TextAlign.start,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              CustomTextFormField(
                                 readOnly: true,
-                                hint:
-                                    BlocProvider.of<TaskCubit>(context).endTime,
+                                hint: BlocProvider.of<TaskCubit>(context)
+                                    .startTime,
                                 height: 48,
                                 width: 170,
                                 suffixIcon: Icons.timer_outlined,
                                 onPressed: () async {
                                   BlocProvider.of<TaskCubit>(context)
-                                      .getEnd(context);
-                                }),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      AppStrings.color,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 1,
-                    ),
-                    Container(
-                      height: 70,
-                      child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<TaskCubit>(context)
-                                  .ChangeCheckMarkIndex(index);
-                            },
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  BlocProvider.of<TaskCubit>(context)
-                                      .getColor(index),
-                              child: index ==
-                                      BlocProvider.of<TaskCubit>(context)
-                                          .currIndex
-                                  ? const Icon(Icons.check)
-                                  : null,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: 8,
-                        ),
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
+                                      .getStart(context);
+                                },
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppStrings.endTime,
+                                // textAlign: TextAlign.start,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              CustomTextFormField(
+                                  readOnly: true,
+                                  hint: BlocProvider.of<TaskCubit>(context)
+                                      .endTime,
+                                  height: 48,
+                                  width: 170,
+                                  suffixIcon: Icons.timer_outlined,
+                                  onPressed: () async {
+                                    BlocProvider.of<TaskCubit>(context)
+                                        .getEnd(context);
+                                  }),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 95,
-                    ),
-                    CustomElevatedButton(
-                        text: AppStrings.create,
-                        onPressed: () {},
-                        height: 48,
-                        width: double.infinity),
-                  ],
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        AppStrings.color,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      const SizedBox(
+                        height: 1,
+                      ),
+                      Container(
+                        height: 70,
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<TaskCubit>(context)
+                                    .ChangeCheckMarkIndex(index);
+                              },
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    BlocProvider.of<TaskCubit>(context)
+                                        .getColor(index),
+                                child: index ==
+                                        BlocProvider.of<TaskCubit>(context)
+                                            .currIndex
+                                    ? const Icon(Icons.check)
+                                    : null,
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                            width: 8,
+                          ),
+                          itemCount: 6,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 95,
+                      ),
+                      CustomElevatedButton(
+                          text: AppStrings.create,
+                          onPressed: () {},
+                          height: 48,
+                          width: double.infinity),
+                    ],
+                  ),
                 );
               },
             ),

@@ -7,6 +7,7 @@ import 'package:to_do_app/core/utils/App_assetes.dart';
 import 'package:to_do_app/core/utils/App_colors.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
 import 'package:to_do_app/core/widgeths/task_component.dart';
+import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 import 'package:to_do_app/features/Task/screens/addTaskScreen/addTaskScreen.dart';
 
 import '../../../core/widgeths/custom_elevated_button.dart';
@@ -23,61 +24,65 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  DateFormat.yMMMd().format(DateTime.now()),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: 24,
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                DateFormat.yMMMd().format(DateTime.now()),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      fontSize: 24,
+                    ),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              Text(
+                AppStrings.today,
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      fontSize: 24,
+                    ),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              DatePicker(DateTime.now(),
+                  initialSelectedDate: DateTime.now(),
+                  height: 94,
+                  selectionColor: AppColors.selectedColor,
+                  selectedTextColor: AppColors.white,
+                  dateTextStyle: Theme.of(context).textTheme.displayMedium!,
+                  monthTextStyle: Theme.of(context).textTheme.displayMedium!,
+                  dayTextStyle: Theme.of(context).textTheme.displayMedium!,
+                  onDateChange: (date) {
+                // New date selected
+                // setState(() {
+                //   _selectedValue = date;
+              }),
+              const SizedBox(
+                height: 24,
+              ),
+              TaskModel.tasklist.isEmpty
+                  ? noTasks(context: context)
+                  : Expanded(
+                      child: ListView.separated(
+                        itemCount: TaskModel.tasklist.length,
+                        itemBuilder: (context, index) {
+                          return TaskComponent(
+                            TaskColor: AppColors.pink,
+                            taskmodel: TaskModel.tasklist[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 20,
+                        ),
                       ),
-                  textAlign: TextAlign.start,
-                ),
-                const SizedBox(
-                  height: 13,
-                ),
-                Text(
-                  AppStrings.today,
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: 24,
-                      ),
-                  textAlign: TextAlign.start,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                DatePicker(DateTime.now(),
-                    initialSelectedDate: DateTime.now(),
-                    height: 94,
-                    selectionColor: AppColors.selectedColor,
-                    selectedTextColor: AppColors.white,
-                    dateTextStyle: Theme.of(context).textTheme.displayMedium!,
-                    monthTextStyle: Theme.of(context).textTheme.displayMedium!,
-                    dayTextStyle: Theme.of(context).textTheme.displayMedium!,
-                    onDateChange: (date) {
-                  // New date selected
-                  // setState(() {
-                  //   _selectedValue = date;
-                }),
-                const SizedBox(
-                  height: 50,
-                ),
-                TaskComponent(
-                  TaskColor: AppColors.pink,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                TaskComponent(TaskColor: AppColors.color5),
-                const SizedBox(
-                  height: 25,
-                ),
-                TaskComponent(TaskColor: AppColors.color4),
-              ],
-            ),
+                    ),
+              // TaskComponent(TaskColor: AppColors.color4),
+            ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
