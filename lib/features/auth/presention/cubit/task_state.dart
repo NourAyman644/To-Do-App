@@ -21,3 +21,9 @@ class getEndTimeSucessState extends TaskState {}
 class getEndTimeErrorState extends TaskState {}
 
 class ChangeCheckMarkIndexState extends TaskState {}
+
+class InsertTaskLoadingState extends TaskState {}
+
+class InsertTaskSucessState extends TaskState {}
+
+class InsertTaskErrorState extends TaskState {}

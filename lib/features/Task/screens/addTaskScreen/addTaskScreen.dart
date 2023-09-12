@@ -5,6 +5,7 @@ import 'package:to_do_app/core/common/commonds.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
 import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
 import 'package:to_do_app/core/widgeths/custom_text_form_field.dart';
+import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 import 'package:to_do_app/features/Task/screens/home.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_cubit.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
@@ -12,10 +13,6 @@ import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
 import '../../../../core/utils/App_colors.dart';
 
 class addTaskScreen extends StatelessWidget {
-  late TextEditingController titleController = TextEditingController();
-
-  late TextEditingController noteController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,9 +37,15 @@ class addTaskScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: BlocBuilder<TaskCubit, TaskState>(
+            child: BlocConsumer<TaskCubit, TaskState>(
+              listener: (context, state) {
+                if (state is InsertTaskSucessState) {
+                  Navigator.pop(context);
+                }
+              },
               builder: (context, state) {
                 return Form(
+                  key: BlocProvider.of<TaskCubit>(context).formKey,
                   child: Column(
                     //   mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +63,16 @@ class addTaskScreen extends StatelessWidget {
                       ),
                       CustomTextFormField(
                         hint: AppStrings.titleHint,
+                        valid: (val) {
+                          if (val!.isEmpty) {
+                            return 'Enter valid Title';
+                          }
+                          return null;
+                        },
                         height: 48,
                         width: double.infinity,
-                        controller: titleController,
+                        controller:
+                            BlocProvider.of<TaskCubit>(context).titleController,
                       ),
                       const SizedBox(
                         height: 24,
@@ -77,9 +87,16 @@ class addTaskScreen extends StatelessWidget {
                       ),
                       CustomTextFormField(
                         hint: AppStrings.noteHint,
+                        valid: (val) {
+                          if (val!.isEmpty) {
+                            return 'Enter valid Note';
+                          }
+                          return null;
+                        },
                         height: 48,
                         width: double.infinity,
-                        controller: noteController,
+                        controller:
+                            BlocProvider.of<TaskCubit>(context).noteController,
                       ),
                       const SizedBox(
                         height: 24,
@@ -205,11 +222,25 @@ class addTaskScreen extends StatelessWidget {
                       const SizedBox(
                         height: 95,
                       ),
-                      CustomElevatedButton(
-                          text: AppStrings.create,
-                          onPressed: () {},
-                          height: 48,
-                          width: double.infinity),
+                      state is InsertTaskLoadingState
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.primarycolor,
+                              ),
+                            )
+                          : CustomElevatedButton(
+                              text: AppStrings.create,
+                              onPressed: () {
+                                if (BlocProvider.of<TaskCubit>(context)
+                                    .formKey
+                                    .currentState!
+                                    .validate()) {
+                                  BlocProvider.of<TaskCubit>(context)
+                                      .insertTask();
+                                }
+                              },
+                              height: 48,
+                              width: double.infinity),
                     ],
                   ),
                 );

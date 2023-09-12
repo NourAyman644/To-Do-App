@@ -10,7 +10,8 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon, // Make suffixIcon parameter optional
     this.onPressed,
     this.controller,
-    this.readOnly = false, // Make onPressed parameter optional
+    this.readOnly = false,
+    this.valid, // Make onPressed parameter optional
   }) : super(key: key);
 
   final String hint;
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   final VoidCallback? onPressed; // Make onPressed nullable
   final TextEditingController? controller;
   final bool readOnly;
+  final String? Function(String?)? valid;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,6 +55,7 @@ class CustomTextFormField extends StatelessWidget {
             ),
           ),
         ),
+        validator: valid,
       ),
     );
   }
