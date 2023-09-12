@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/core/common/commonds.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
@@ -40,6 +41,7 @@ class addTaskScreen extends StatelessWidget {
             child: BlocConsumer<TaskCubit, TaskState>(
               listener: (context, state) {
                 if (state is InsertTaskSucessState) {
+                  showToast(message: 'Add Sucess', state: ToastStates.sucess);
                   Navigator.pop(context);
                 }
               },
