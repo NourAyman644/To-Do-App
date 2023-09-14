@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
 
+import '../../../../core/datebase/sqflite/sqflite.dart';
+import '../../../../core/services/services_Locator.dart';
 import '../../../../core/utils/App_colors.dart';
 import '../../../Task/data/models/Task_Model.dart';
 
@@ -18,6 +20,7 @@ class TaskCubit extends Cubit<TaskState> {
 
   late TextEditingController noteController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   void getDate(context) async {
     emit(getDateLoadingState());
     DateTime? pickedDate = await showDatePicker(
@@ -87,26 +90,40 @@ class TaskCubit extends Cubit<TaskState> {
     emit(ChangeCheckMarkIndexState());
   }
 
-  List<TaskModel> tasklist = [];
+  List<TaskModel> taskList = [];
+
   void insertTask() async {
     // to make screen wait one sec
     emit(InsertTaskLoadingState());
     try {
-      await Future.delayed(Duration(seconds: 2));
-      tasklist.add(TaskModel(
-          id: '1',
-          Date: DateFormat.yMd().format(current),
-          StartTime: startTime,
-          endTime: endTime,
-          title: titleController.text,
-          note: noteController.text,
-          isCompleted: false,
-          color: currIndex));
+      await sl<SqfliteHelper>().insertToDB(
+        TaskModel(
+            date: DateFormat.yMd().format(current),
+            startTime: startTime,
+            endTime: endTime,
+            title: titleController.text,
+            note: noteController.text,
+            isCompleted: 0,
+            color: currIndex),
+      );
+      getTasks();
       titleController.clear();
       noteController.clear();
       emit(InsertTaskSucessState());
     } catch (e) {
       emit(InsertTaskErrorState());
     }
+  }
+
+// get tasks
+  void getTasks() async {
+    emit(getDateLoadingState());
+    await sl<SqfliteHelper>().getFromDB().then((value) {
+      taskList = value.map((e) => TaskModel.fromJson(e)).toList();
+      emit(getDateSucessState());
+    }).catchError((e) {
+      print(e.toString());
+      emit(getDateErrorState());
+    });
   }
 }

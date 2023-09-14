@@ -43,7 +43,7 @@ class TaskComponent extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        '${taskmodel.StartTime}  - ${taskmodel.endTime}',
+                        '${taskmodel.startTime}  - ${taskmodel.endTime}',
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
@@ -74,7 +74,9 @@ class TaskComponent extends StatelessWidget {
             RotatedBox(
               quarterTurns: 7,
               child: Text(
-                taskmodel.isCompleted ? AppStrings.complete : AppStrings.toDo,
+                taskmodel.isCompleted == 1
+                    ? AppStrings.complete
+                    : AppStrings.toDo,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
             ),

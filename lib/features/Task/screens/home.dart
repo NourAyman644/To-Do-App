@@ -72,19 +72,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 24,
                   ),
-                  BlocProvider.of<TaskCubit>(context).tasklist.isEmpty
+                  BlocProvider.of<TaskCubit>(context).taskList.isEmpty
                       ? noTasks(context: context)
                       : Expanded(
                           child: ListView.separated(
                             itemCount: BlocProvider.of<TaskCubit>(context)
-                                .tasklist
+                                .taskList
                                 .length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 child: TaskComponent(
                                   TaskColor: AppColors.pink,
                                   taskmodel: BlocProvider.of<TaskCubit>(context)
-                                      .tasklist[index],
+                                      .taskList[index],
                                 ),
                                 onTap: () {
                                   showBottomSheet(
