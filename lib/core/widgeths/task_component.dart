@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
+
 import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 
 import '../utils/App_colors.dart';
@@ -9,22 +9,40 @@ class TaskComponent extends StatelessWidget {
   TaskComponent({required this.TaskColor, required this.taskmodel});
   late Color TaskColor;
   final TaskModel taskmodel;
+  Color getColor(index) {
+    switch (index) {
+      case 0:
+        return AppColors.pink;
+      case 1:
+        return AppColors.green;
+      case 2:
+        return AppColors.color3;
+      case 3:
+        return AppColors.color4;
+      case 4:
+        return AppColors.color5;
+      case 5:
+        return AppColors.color6;
+      default:
+        return AppColors.primarycolor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 327,
+        //  width: 327,
         height: 128,
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: TaskColor,
+          color: getColor(taskmodel.color),
           borderRadius: BorderRadiusDirectional.circular(16),
         ),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     taskmodel.title,
@@ -33,7 +51,11 @@ class TaskComponent extends StatelessWidget {
                         ),
                     textAlign: TextAlign.start,
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Icon(
                         Icons.timer,
@@ -48,29 +70,38 @@ class TaskComponent extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Text(
                     taskmodel.note,
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 26,
                         ),
-                    textAlign: TextAlign.start,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              width: 123,
-            ),
-            const VerticalDivider(
-              color: AppColors.white,
-              width: 12,
-              thickness: 1,
-              indent: 30,
-              endIndent: 28,
-            ),
+            // const SizedBox(
+            //   width: 123,
+            // ),
+            // const VerticalDivider(
+            //   color: AppColors.white,
+            //   width: 12,
+            //   thickness: 1,
+            //   indent: 30,
+            //   endIndent: 28,
+            // ),
             // const SizedBox(
             //   width: 9,
             // ),
+            Container(
+              height: 75,
+              width: 1,
+              color: AppColors.white,
+              margin: const EdgeInsets.only(right: 10),
+            ),
+            // SizedBox(width: 10,)
             RotatedBox(
               quarterTurns: 7,
               child: Text(

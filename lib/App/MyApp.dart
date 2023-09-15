@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:to_do_app/core/them/them.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
 
@@ -10,13 +10,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppStrings.AppName,
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-      theme: getAppTheme(),
-      themeMode: ThemeMode.dark,
-      darkTheme: getAppDarkTheme(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(375, 812),
+        builder: (context, child) {
+          return MaterialApp(
+            title: AppStrings.AppName,
+            debugShowCheckedModeBanner: false,
+            home: const SplashScreen(),
+            theme: getAppTheme(),
+            themeMode: ThemeMode.dark,
+            darkTheme: getAppDarkTheme(),
+          );
+        });
   }
 }

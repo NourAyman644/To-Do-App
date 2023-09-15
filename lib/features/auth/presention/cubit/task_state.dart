@@ -33,3 +33,9 @@ class GetTaskLoadingState extends TaskState {}
 class GetTaskSucessState extends TaskState {}
 
 class GetTaskErrorState extends TaskState {}
+
+class UpdateTaskLoadingState extends TaskState {}
+
+class UpdateTaskSucessState extends TaskState {}
+
+class UpdateTaskErrorState extends TaskState {}

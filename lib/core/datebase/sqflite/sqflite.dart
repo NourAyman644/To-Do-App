@@ -66,10 +66,9 @@ class SqfliteHelper {
   // update
   Future<int> UpdateDB(int id) async {
     return await db.rawUpdate('''
-      UPDATE Tasks SET 
-    Complete =? WHERE id=?
-      
-      
-      ''', [1, id]);
+    UPDATE Tasks
+    SET Complete = ?
+    WHERE id = ?
+   ''', [1, id]);
   }
 }

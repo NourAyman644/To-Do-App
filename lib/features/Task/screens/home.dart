@@ -8,7 +8,6 @@ import 'package:to_do_app/core/utils/App_assetes.dart';
 import 'package:to_do_app/core/utils/App_colors.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
 import 'package:to_do_app/core/widgeths/task_component.dart';
-import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 import 'package:to_do_app/features/Task/screens/addTaskScreen/addTaskScreen.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_cubit.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
@@ -87,23 +86,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .taskList[index],
                                 ),
                                 onTap: () {
-                                  showBottomSheet(
+                                  showModalBottomSheet(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return Container(
                                           color: AppColors.sheetColor,
                                           width: double.infinity,
                                           height: 240,
+                                          padding: const EdgeInsets.all(24),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              CustomElevatedButton(
-                                                text: AppStrings.complete,
-                                                onPressed: () {},
-                                                height: 48,
-                                                width: 327,
-                                              ),
+                                              BlocProvider.of<TaskCubit>(
+                                                              context)
+                                                          .taskList[index]
+                                                          .isCompleted ==
+                                                      1
+                                                  ? Container()
+                                                  : CustomElevatedButton(
+                                                      text: AppStrings.complete,
+                                                      onPressed: () {
+                                                        BlocProvider.of<
+                                                                    TaskCubit>(
+                                                                context)
+                                                            .updateTask(BlocProvider
+                                                                    .of<TaskCubit>(
+                                                                        context)
+                                                                .taskList[index]
+                                                                .id);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      height: 48,
+                                                      width: 327,
+                                                    ),
                                               CustomElevatedButton(
                                                 text: AppStrings.delete,
                                                 onPressed: () {},
@@ -113,7 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               CustomElevatedButton(
                                                 text: AppStrings.cancal,
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
                                                 height: 48,
                                                 width: 327,
                                               ),
@@ -136,13 +154,16 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            navigate(context: context, screen: addTaskScreen());
-          },
-          backgroundColor: AppColors.primarycolor,
-          child: const Icon(
-            CupertinoIcons.plus,
+        floatingActionButton: Align(
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+            onPressed: () {
+              navigate(context: context, screen: addTaskScreen());
+            },
+            backgroundColor: AppColors.primarycolor,
+            child: const Icon(
+              CupertinoIcons.plus,
+            ),
           ),
         ),
       ),

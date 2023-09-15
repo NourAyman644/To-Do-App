@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:intl/intl.dart';
 import 'package:to_do_app/core/common/commonds.dart';
 import 'package:to_do_app/core/utils/App_strings.dart';
 import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
 import 'package:to_do_app/core/widgeths/custom_text_form_field.dart';
-import 'package:to_do_app/features/Task/data/models/Task_Model.dart';
 import 'package:to_do_app/features/Task/screens/home.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_cubit.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
@@ -52,16 +52,16 @@ class addTaskScreen extends StatelessWidget {
                     //   mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: 25.h,
                       ),
                       Text(
                         AppStrings.title,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       CustomTextFormField(
                         hint: AppStrings.titleHint,
@@ -71,21 +71,21 @@ class addTaskScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        height: 48,
+                        height: 48.h,
                         width: double.infinity,
                         controller:
                             BlocProvider.of<TaskCubit>(context).titleController,
                       ),
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 24.h,
                       ),
                       Text(
                         AppStrings.note,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       CustomTextFormField(
                         hint: AppStrings.noteHint,
@@ -95,21 +95,21 @@ class addTaskScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        height: 48,
+                        height: 48.h,
                         width: double.infinity,
                         controller:
                             BlocProvider.of<TaskCubit>(context).noteController,
                       ),
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 24.h,
                       ),
                       Text(
                         AppStrings.date,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       CustomTextFormField(
                         readOnly: true,
@@ -123,8 +123,8 @@ class addTaskScreen extends StatelessWidget {
                           BlocProvider.of<TaskCubit>(context).getDate(context);
                         },
                       ),
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: 30.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,15 +138,15 @@ class addTaskScreen extends StatelessWidget {
                                 style:
                                     Theme.of(context).textTheme.displayMedium,
                               ),
-                              const SizedBox(
-                                height: 8,
+                              SizedBox(
+                                height: 8.h,
                               ),
                               CustomTextFormField(
                                 readOnly: true,
                                 hint: BlocProvider.of<TaskCubit>(context)
                                     .startTime,
-                                height: 48,
-                                width: 170,
+                                height: 48.h,
+                                width: 150.w,
                                 suffixIcon: Icons.timer_outlined,
                                 onPressed: () async {
                                   BlocProvider.of<TaskCubit>(context)
@@ -164,15 +164,15 @@ class addTaskScreen extends StatelessWidget {
                                 style:
                                     Theme.of(context).textTheme.displayMedium,
                               ),
-                              const SizedBox(
-                                height: 8,
+                              SizedBox(
+                                height: 8.h,
                               ),
                               CustomTextFormField(
                                   readOnly: true,
                                   hint: BlocProvider.of<TaskCubit>(context)
                                       .endTime,
-                                  height: 48,
-                                  width: 170,
+                                  height: 48.h,
+                                  width: 150.w,
                                   suffixIcon: Icons.timer_outlined,
                                   onPressed: () async {
                                     BlocProvider.of<TaskCubit>(context)
@@ -182,19 +182,19 @@ class addTaskScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: 25.h,
                       ),
                       Text(
                         AppStrings.color,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      const SizedBox(
-                        height: 1,
+                      SizedBox(
+                        height: 1.h,
                       ),
                       Container(
-                        height: 70,
+                        height: 70.h,
                         child: ListView.separated(
                           itemBuilder: (context, index) {
                             return GestureDetector(
@@ -214,15 +214,15 @@ class addTaskScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          separatorBuilder: (context, index) => const SizedBox(
-                            width: 8,
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: 8.w,
                           ),
                           itemCount: 6,
                           scrollDirection: Axis.horizontal,
                         ),
                       ),
-                      const SizedBox(
-                        height: 95,
+                      SizedBox(
+                        height: 95.h,
                       ),
                       state is InsertTaskLoadingState
                           ? const Center(
@@ -241,7 +241,7 @@ class addTaskScreen extends StatelessWidget {
                                       .insertTask();
                                 }
                               },
-                              height: 48,
+                              height: 48.h,
                               width: double.infinity),
                     ],
                   ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:to_do_app/core/common/commonds.dart';
-import 'package:to_do_app/core/utils/App_assetes.dart';
+
 import 'package:to_do_app/core/widgeths/custom_elevated_button.dart';
 import 'package:to_do_app/core/widgeths/custom_text_button.dart';
 import 'package:to_do_app/features/Task/screens/home.dart';
