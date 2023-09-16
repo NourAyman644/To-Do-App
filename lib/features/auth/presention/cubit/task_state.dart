@@ -49,3 +49,7 @@ class deleteTaskLoadingState extends TaskState {}
 class deleteTaskSucessState extends TaskState {}
 
 class deleteTaskErrorState extends TaskState {}
+
+class changeThemeState extends TaskState {}
+
+class GetThemeState extends TaskState {}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:to_do_app/core/common/commonds.dart';
@@ -42,44 +43,44 @@ class onBoardingScreens extends StatelessWidget {
                                         controller.jumpToPage(2);
                                       },
                                     )
-                                  : const SizedBox(
-                                      height: 50,
+                                  : SizedBox(
+                                      height: 50.h,
                                     ),
                             ],
                           ),
                           Image.asset(
                               OnBoardingModel.onBoardingScreens[index].img),
-                          const SizedBox(
-                            height: 16,
+                          SizedBox(
+                            height: 16.h,
                           ),
                           SmoothPageIndicator(
                             controller: controller,
                             count: OnBoardingModel.onBoardingScreens.length,
-                            effect: const ExpandingDotsEffect(
+                            effect: ExpandingDotsEffect(
                               activeDotColor: AppColors.primarycolor,
                               radius: 56,
-                              dotHeight: 12,
-                              dotWidth: 27,
+                              dotHeight: 12.h,
+                              dotWidth: 27.w,
                               spacing: 8,
                             ),
                           ),
-                          const SizedBox(
-                            height: 50,
+                          SizedBox(
+                            height: 50.h,
                           ),
                           Text(
                             OnBoardingModel.onBoardingScreens[index].title,
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
-                          const SizedBox(
-                            height: 32,
+                          SizedBox(
+                            height: 32.h,
                           ),
                           Text(
                             OnBoardingModel.onBoardingScreens[index].subTitle,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
-                          const SizedBox(
-                            height: 100,
+                          SizedBox(
+                            height: 100.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,8 +105,8 @@ class onBoardingScreens extends StatelessWidget {
                                             curve:
                                                 Curves.fastLinearToSlowEaseIn);
                                       },
-                                      height: 48,
-                                      width: 90,
+                                      height: 48.h,
+                                      width: 90.w,
                                       color: AppColors.primarycolor,
                                     )
                                   : CustomElevatedButton(
@@ -124,8 +125,9 @@ class onBoardingScreens extends StatelessWidget {
                                         }).catchError(
                                                 (e) => print(e.toString()));
                                       },
-                                      height: 48,
-                                      width: 151, color: AppColors.primarycolor,
+                                      height: 48.h,
+                                      width: 151.w,
+                                      color: AppColors.primarycolor,
                                     )
                             ],
                           ),

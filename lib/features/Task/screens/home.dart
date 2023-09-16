@@ -2,6 +2,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/core/common/commonds.dart';
 import 'package:to_do_app/core/utils/App_assetes.dart';
@@ -27,35 +28,50 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: BlocBuilder<TaskCubit, TaskState>(
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    DateFormat.yMMMd().format(DateTime.now()),
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: 24,
-                        ),
-                    textAlign: TextAlign.start,
+                  Row(
+                    children: [
+                      Text(
+                        DateFormat.yMMMd().format(DateTime.now()),
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: 24.sp,
+                                ),
+                        textAlign: TextAlign.start,
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          BlocProvider.of<TaskCubit>(context).ChangeTheme();
+                        },
+                        icon: const Icon(Icons.mode_night),
+                        color: BlocProvider.of<TaskCubit>(context).isDark
+                            ? AppColors.white
+                            : AppColors.backColor,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 13,
+                  SizedBox(
+                    height: 13.h,
                   ),
                   Text(
                     AppStrings.today,
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: 24,
+                          fontSize: 24.sp,
                         ),
                     textAlign: TextAlign.start,
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 15.h,
                   ),
                   DatePicker(DateTime.now(),
                       initialSelectedDate: DateTime.now(),
-                      height: 94,
+                      height: 94.h,
                       selectionColor: AppColors.selectedColor,
                       selectedTextColor: AppColors.white,
                       dateTextStyle: Theme.of(context).textTheme.displayMedium!,
@@ -69,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     //   _selectedValue = date;
                   }),
 
-                  const SizedBox(
-                    height: 24,
+                  SizedBox(
+                    height: 24.h,
                   ),
                   BlocProvider.of<TaskCubit>(context).taskList.isEmpty
                       ? noTasks(context: context)
@@ -93,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         return Container(
                                           color: AppColors.sheetColor,
                                           width: double.infinity,
-                                          height: 240,
+                                          height: 240.h,
                                           padding: const EdgeInsets.all(24),
                                           child: Column(
                                             mainAxisAlignment:
@@ -118,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .id);
                                                         Navigator.pop(context);
                                                       },
-                                                      height: 48,
-                                                      width: 327,
+                                                      height: 48.h,
+                                                      width: 327.w,
                                                     ),
                                               CustomElevatedButton(
                                                 text: AppStrings.delete,
@@ -133,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .id);
                                                   Navigator.pop(context);
                                                 },
-                                                height: 48,
-                                                width: 327,
+                                                height: 48.h,
+                                                width: 327.w,
                                                 color: AppColors.delColor,
                                               ),
                                               CustomElevatedButton(
@@ -142,8 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                height: 48,
-                                                width: 327,
+                                                height: 48.h,
+                                                width: 327.w,
                                               ),
                                             ],
                                           ),
@@ -152,9 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               );
                             },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              height: 20,
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 20.h,
                             ),
                           ),
                         ),
@@ -187,22 +202,22 @@ Column noTasks({required BuildContext context}) {
     //crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Image.asset(AppAssets.Path5),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: 10.h,
       ),
       Text(
         AppStrings.screen1Title,
         style: Theme.of(context).textTheme.displayMedium!.copyWith(
-              fontSize: 20,
+              fontSize: 20.sp,
             ),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: 10.h,
       ),
       Text(
         AppStrings.screen1SubTitle,
         style: Theme.of(context).textTheme.displayMedium!.copyWith(
-              fontSize: 16,
+              fontSize: 16.sp,
             ),
       ),
     ],

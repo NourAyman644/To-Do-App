@@ -20,4 +20,5 @@ class AppColors {
   static const Color backColor = Color(0xff1D1D1D);
   static const Color red = Colors.red;
   static const Color orange = Colors.orange;
+  static const Color lightBlack = Color(0xff1D1D1D);
 }

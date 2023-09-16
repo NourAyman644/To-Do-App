@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/core/utils/App_colors.dart';
+
+import '../../features/auth/presention/cubit/task_cubit.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
@@ -31,13 +34,15 @@ class CustomTextFormField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: hint,
-          fillColor: AppColors.backColor,
-          filled: true,
+          //  fillColor: AppColors.backColor,
+          //  filled: true,
           suffixIcon: suffixIcon != null // Check if suffixIcon is provided
               ? IconButton(
                   icon: Icon(
                     suffixIcon!,
-                    color: AppColors.white,
+                    color: BlocProvider.of<TaskCubit>(context).isDark
+                        ? AppColors.white
+                        : AppColors.backColor,
                   ),
                   onPressed: onPressed,
                 )

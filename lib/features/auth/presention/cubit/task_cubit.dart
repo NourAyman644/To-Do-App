@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/core/datebase/cache.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
 
 import '../../../../core/datebase/sqflite/sqflite.dart';
@@ -168,5 +169,17 @@ class TaskCubit extends Cubit<TaskState> {
       print(e.toString());
       emit(deleteTaskErrorState());
     });
+  }
+
+  bool isDark = false;
+  void ChangeTheme() async {
+    isDark = !isDark;
+    await sl<CacheHelper>().saveData(key: 'isDark', value: isDark);
+    emit(changeThemeState());
+  }
+
+  void getTheme() async {
+    isDark = await sl<CacheHelper>().getData(key: 'isDark');
+    emit(GetThemeState());
   }
 }
