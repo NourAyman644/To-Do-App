@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do_app/features/auth/presention/cubit/task_state.dart';
 
 import '../../../../core/datebase/sqflite/sqflite.dart';
@@ -12,6 +14,7 @@ class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
 
   DateTime current = DateTime.now();
+  DateTime Selected = DateTime.now();
   String startTime = DateFormat.jm().format(DateTime.now());
   String endTime =
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 60)));
@@ -64,6 +67,14 @@ class TaskCubit extends Cubit<TaskState> {
       print(null);
       emit(getEndTimeErrorState());
     }
+  }
+
+  void getSelectedDate(date) {
+    emit(getSelectedDateLoadingState());
+    Selected = date;
+
+    emit(getSelectedDateSucessState());
+    getTasks();
   }
 
   Color getColor(index) {
@@ -119,7 +130,12 @@ class TaskCubit extends Cubit<TaskState> {
   void getTasks() async {
     emit(GetTaskLoadingState());
     await sl<SqfliteHelper>().getFromDB().then((value) {
-      taskList = value.map((e) => TaskModel.fromJson(e)).toList();
+      taskList = value
+          .map((e) => TaskModel.fromJson(e))
+          .toList()
+          .where((element) => element.date == DateFormat.yMd().format(Selected))
+          .toList();
+      // date from type in trapel
       emit(GetTaskSucessState());
     }).catchError((e) {
       print(e.toString());
@@ -131,12 +147,26 @@ class TaskCubit extends Cubit<TaskState> {
   void updateTask(id) async {
     emit(UpdateTaskLoadingState());
 
-    await sl<SqfliteHelper>().UpdateDB(id).then((value) {
+    await sl<SqfliteHelper>().updatedDB(id).then((value) {
       emit(UpdateTaskSucessState());
       getTasks();
     }).catchError((e) {
       print(e.toString());
       emit(UpdateTaskErrorState());
+    });
+  }
+
+  //delete task
+
+  void deleteTask(id) async {
+    emit(deleteTaskLoadingState());
+
+    await sl<SqfliteHelper>().deleteFromDB(id).then((value) {
+      emit(deleteTaskSucessState());
+      getTasks();
+    }).catchError((e) {
+      print(e.toString());
+      emit(deleteTaskErrorState());
     });
   }
 }

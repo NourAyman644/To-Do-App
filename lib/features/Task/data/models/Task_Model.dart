@@ -4,7 +4,7 @@ class TaskModel {
   final String endTime;
   final String title;
   final String note;
-  final int? isCompleted;
+  final int isCompleted;
   final int color;
   final String date;
 
@@ -15,7 +15,7 @@ class TaskModel {
       required this.endTime,
       required this.title,
       required this.note,
-      this.isCompleted,
+      required this.isCompleted,
       required this.color});
 
   factory TaskModel.fromJson(Map<String, dynamic> jsonData) {

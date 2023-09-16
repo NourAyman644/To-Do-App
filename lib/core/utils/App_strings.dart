@@ -15,7 +15,7 @@ class AppStrings {
   static const String next = "Next";
   static const String start = "Get Started";
   static const String today = "Today";
-  static const String complete = "Task Completed ";
+  static const String complete = "Completed ";
   static const String delete = "Delete Task";
   static const String cancal = "Cancel";
   static const String screen1Title = "What do you want to do today?";

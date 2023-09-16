@@ -63,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Theme.of(context).textTheme.displayMedium!,
                       dayTextStyle: Theme.of(context).textTheme.displayMedium!,
                       onDateChange: (date) {
+                    BlocProvider.of<TaskCubit>(context).getSelectedDate(date);
                     // New date selected
                     // setState(() {
                     //   _selectedValue = date;
@@ -122,7 +123,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                               CustomElevatedButton(
                                                 text: AppStrings.delete,
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  BlocProvider.of<TaskCubit>(
+                                                          context)
+                                                      .deleteTask(BlocProvider
+                                                              .of<TaskCubit>(
+                                                                  context)
+                                                          .taskList[index]
+                                                          .id);
+                                                  Navigator.pop(context);
+                                                },
                                                 height: 48,
                                                 width: 327,
                                                 color: AppColors.delColor,
